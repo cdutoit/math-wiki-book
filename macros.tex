@@ -1,0 +1,21 @@
+% Shared notation and environments. Every chapter may use these; nothing
+% chapter-specific belongs here.
+
+%--- Theorem-like environments (numbered per chapter) ---
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+%--- Chapter front matter ---
+% What a chapter assumes, so a reader landing on it (e.g. on the website)
+% knows what to read first. Use once, straight after \chapter and \label.
+\newcommand{\assumes}[1]{%
+  \par\noindent\textbf{Assumes:} #1\par\medskip}
