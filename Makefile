@@ -4,6 +4,8 @@
 #   make chapter CH=<path>   one chapter only   -> build/pdf/chapter.pdf
 #                            e.g. CH=chapters/physics/time-dilation
 #   make watch               rebuild the full book on every save
+#   make web                 website            -> build/web/index.html
+#   make serve               preview the website at http://localhost:8000
 #   make clean               remove build/
 
 PDF_DIR := build/pdf
@@ -13,7 +15,10 @@ LATEXMK := latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error
 # per-chapter .aux files that \include writes.
 CHAPTER_DIRS := $(addprefix $(PDF_DIR)/,$(shell find chapters -type d))
 
-.PHONY: pdf chapter watch clean
+WEB_DIR := build/web
+PAGEFIND := npx -y pagefind@1.3.0
+
+.PHONY: pdf chapter watch web serve clean
 
 pdf: | $(CHAPTER_DIRS)
 	$(LATEXMK) main.tex
@@ -27,6 +32,19 @@ chapter: | $(CHAPTER_DIRS)
 
 watch: | $(CHAPTER_DIRS)
 	$(LATEXMK) -pvc main.tex
+
+# One page per part and chapter, named from the \label (prob_basic-probability.html),
+# then a Pagefind search index over the chapter text.
+web:
+	rm -rf $(WEB_DIR)
+	latexmlc main.tex --path=. --sourcedirectory=. --log=build/latexml.log \
+	  --format=html5 --split --splitat=chapter --splitnaming=label \
+	  --navigationtoc=context --css=web/site.css --javascript=web/site.js \
+	  --dest=$(WEB_DIR)/index.html
+	$(PAGEFIND) --site $(WEB_DIR) --root-selector .ltx_page_content --exclude-selectors math
+
+serve:
+	python3 -m http.server 8000 --bind 127.0.0.1 --directory $(WEB_DIR)
 
 $(CHAPTER_DIRS):
 	mkdir -p $@
