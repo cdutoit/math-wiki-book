@@ -8,6 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
   box.id = "search";
   nav.prepend(box);
 
+  // `make site` copies the PDF next to the pages; link it only if it is there.
+  fetch("book.pdf", { method: "HEAD" }).then((r) => {
+    if (!r.ok) return;
+    const pdf = document.createElement("a");
+    pdf.href = "book.pdf";
+    pdf.className = "pdf-link";
+    pdf.textContent = "Download the PDF";
+    nav.append(pdf);
+  }).catch(() => {});
+
   const css = document.createElement("link");
   css.rel = "stylesheet";
   css.href = "pagefind/pagefind-ui.css";
