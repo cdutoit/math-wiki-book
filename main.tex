@@ -1,0 +1,33 @@
+% Reading order of the whole book. Moving a chapter means moving its \include
+% line here; file names never change.
+\documentclass[11pt,oneside,openany]{book}
+\input{preamble}
+\input{macros}
+
+% While writing, uncomment to rebuild only the chapter(s) you are editing
+% (or use `make chapter CH=...`):
+% \includeonly{chapters/probability-statistics/basic-probability}
+
+\title{Carlo's Mathematical Curiosities}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%=========================================================
+\part{Physics}
+%=========================================================
+\include{chapters/physics/time-dilation}
+\include{chapters/physics/centripetal-acceleration}
+
+%=========================================================
+\part{Probability and Statistics}
+%=========================================================
+\include{chapters/probability-statistics/basic-probability}
+
+\bibliographystyle{plain}
+\bibliography{refs}
+
+\end{document}

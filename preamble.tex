@@ -1,0 +1,16 @@
+% Packages shared by every book built from these chapters (main.tex, and later
+% per-part books such as probability-book.tex). Notation lives in macros.tex.
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usetikzlibrary{calc,decorations.pathreplacing}
+\usepackage[margin=1in]{geometry}
+
+% Number equations per chapter: (1.1), (1.2), ...
+\numberwithin{equation}{chapter}
+
+% hyperref goes last
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue}
