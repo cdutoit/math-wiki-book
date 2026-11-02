@@ -94,3 +94,13 @@ table.ltx_tabular.ltx_centering { margin-inline: auto; }
 :root { --pagefind-ui-scale: 0.75; --pagefind-ui-primary: var(--link);
         --pagefind-ui-text: var(--fg); --pagefind-ui-background: var(--bg);
         --pagefind-ui-border: var(--rule); --pagefind-ui-tag: var(--nav-bg); }
+
+/* --- Web extras (\begin{explore} in macros.tex) and code listings --- */
+.ltx_theorem_explore {
+  border-left: 4px solid var(--link); background: var(--nav-bg);
+  padding: 0.6rem 1rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0;
+}
+.ltx_listing {
+  font-size: 0.85rem; overflow-x: auto; max-width: 100%;
+  background: var(--bg); border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem;
+}

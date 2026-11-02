@@ -34,10 +34,11 @@ watch: | $(CHAPTER_DIRS)
 	$(LATEXMK) -pvc main.tex
 
 # One page per part and chapter, named from the \label (prob_basic-probability.html),
-# then a Pagefind search index over the chapter text.
+# then a Pagefind search index over the chapter text. --preload=latexml.sty
+# turns on \iflatexml, so \webonly content is included (see macros.tex).
 web:
 	rm -rf $(WEB_DIR)
-	latexmlc main.tex --path=. --sourcedirectory=. --log=build/latexml.log \
+	latexmlc main.tex --preload=latexml.sty --path=. --sourcedirectory=. --log=build/latexml.log \
 	  --format=html5 --split --splitat=chapter --splitnaming=label \
 	  --navigationtoc=context --css=web/site.css --javascript=web/site.js \
 	  --dest=$(WEB_DIR)/index.html

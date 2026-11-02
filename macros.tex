@@ -14,6 +14,27 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
+%--- Web-only / print-only content ---
+% `make web` preloads LaTeXML's latexml binding, which sets \iflatexml true.
+% pdflatex (locally, in CI, on Overleaf) never defines it, so it is false.
+\ifcsname iflatexml\endcsname\else\expandafter\newif\csname iflatexml\endcsname\fi
+
+% \webonly{...}   appears only on the website
+% \printonly{...} appears only in the PDF
+% Both take whole paragraphs. To move web content into the book, delete the
+% \webonly{ } wrapper and keep what is inside.
+\newcommand{\webonly}[1]{\iflatexml#1\fi}
+\newcommand{\printonly}[1]{\iflatexml\else#1\fi}
+
+% A boxed extra (code, video, links), usually inside \webonly. The optional
+% argument is a title: \begin{explore}[Simulate it] ... \end{explore}
+\theoremstyle{definition}
+\newtheorem*{explore}{Explore}
+
+% Link to a file in the repository, e.g. \repofile{web-extras/x.py}
+\newcommand{\repourl}{https://github.com/cdutoit/math-wiki-book/blob/main}
+\newcommand{\repofile}[1]{\href{\repourl/#1}{\nolinkurl{#1}}}
+
 %--- Chapter front matter ---
 % What a chapter assumes, so a reader landing on it (e.g. on the website)
 % knows what to read first. Use once, straight after \chapter and \label.
