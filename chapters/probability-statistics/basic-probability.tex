@@ -250,3 +250,23 @@ Therefore, it is better to change your original choice.
 \medskip
 \noindent
 \textbf{Intuition.} Most would think that after the game show host removes one door, the odds change to $50/50$; but with him eliminating a door there is some information leaking and when calculating it it becomes apparent what this information was. He knows where the car is, and with the rules of the game, if he makes his choice, there is some valuable information that we can use from this.
+
+\webonly{
+\begin{explore}[Simulate it]
+Rather than trust the algebra, play the game a hundred thousand times. This
+script always picks door $A$, lets the host open a goat door, and then either
+sticks or switches:
+
+\lstinputlisting[language=Python]{web-extras/probability-statistics/monty_hall.py}
+
+Running \texttt{python3 monty\_hall.py} gives about $0.333$ for sticking and
+$0.667$ for switching, matching $p(X_A\mid Y_C)=\tfrac13$ and
+$p(X_B\mid Y_C)=\tfrac23$ above. Source:
+\repofile{web-extras/probability-statistics/monty_hall.py}.
+\end{explore}
+}
+
+\printonly{
+\medskip\noindent
+\emph{The online version of this chapter includes a short Python simulation of the game.}
+}
