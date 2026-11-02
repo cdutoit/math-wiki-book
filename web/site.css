@@ -104,3 +104,5 @@ table.ltx_tabular.ltx_centering { margin-inline: auto; }
   font-size: 0.85rem; overflow-x: auto; max-width: 100%;
   background: var(--bg); border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem;
 }
+
+.pdf-link { display: block; margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--rule); }

@@ -5,6 +5,7 @@
 #                            e.g. CH=chapters/physics/time-dilation
 #   make watch               rebuild the full book on every save
 #   make web                 website            -> build/web/index.html
+#   make site                website + PDF      -> build/web/ (what CI publishes)
 #   make serve               preview the website at http://localhost:8000
 #   make clean               remove build/
 
@@ -18,7 +19,7 @@ CHAPTER_DIRS := $(addprefix $(PDF_DIR)/,$(shell find chapters -type d))
 WEB_DIR := build/web
 PAGEFIND := npx -y pagefind@1.3.0
 
-.PHONY: pdf chapter watch web serve clean
+.PHONY: pdf chapter watch web site serve clean
 
 pdf: | $(CHAPTER_DIRS)
 	$(LATEXMK) main.tex
@@ -43,6 +44,10 @@ web:
 	  --navigationtoc=context --css=web/site.css --javascript=web/site.js \
 	  --dest=$(WEB_DIR)/index.html
 	$(PAGEFIND) --site $(WEB_DIR) --root-selector .ltx_page_content --exclude-selectors math
+
+# The published site: the web pages plus the PDF, linked from the sidebar.
+site: pdf web
+	cp $(PDF_DIR)/main.pdf $(WEB_DIR)/book.pdf
 
 serve:
 	python3 -m http.server 8000 --bind 127.0.0.1 --directory $(WEB_DIR)
