@@ -39,7 +39,7 @@ watch: | $(CHAPTER_DIRS)
 # turns on \iflatexml, so \webonly content is included (see macros.tex).
 web:
 	rm -rf $(WEB_DIR)
-	latexmlc main.tex --preload=latexml.sty --path=. --sourcedirectory=. --log=build/latexml.log \
+	latexmlc main.tex --preload=latexml.sty --path=. --path=web/latexml --sourcedirectory=. --log=build/latexml.log \
 	  --format=html5 --split --splitat=chapter --splitnaming=label \
 	  --navigationtoc=context --css=web/site.css --javascript=web/site.js \
 	  --dest=$(WEB_DIR)/index.html

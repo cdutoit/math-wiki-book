@@ -1,6 +1,15 @@
 % Reading order of the whole book. Moving a chapter means moving its \include
 % line here; file names never change.
-\documentclass[11pt,oneside,openany]{book}
+%
+% Layout and styling come from the Legrand Orange Book template
+% (LegrandOrangeBook.cls, CC BY-NC-SA 4.0, https://www.LaTeXTemplates.com).
+% For the website, web/latexml/LegrandOrangeBook.cls.ltxml stands in for it.
+\documentclass[
+  11pt,
+  fleqn,     % left-align equations, as in the template
+  a4paper,
+  oneside,   % no blank pages before chapters; remove for a printed (two-sided) book
+]{LegrandOrangeBook}
 \input{preamble}
 \input{macros}
 
@@ -9,25 +18,76 @@
 % \includeonly{chapters/probability-statistics/basic-probability}
 
 \title{Carlo's Little Mathbook}
-\author{}
+\author{Carlo du Toit}
 \date{}
 
+\hypersetup{
+  pdftitle={Carlo's Little Mathbook},
+  pdfauthor={Carlo du Toit},
+  pdfsubject={Mathematics},
+}
+
+\addbibresource{refs.bib}
+
+\definecolor{ocre}{RGB}{243, 102, 25} % highlight colour used throughout
+
+% Default chapter heading image and spacing (overridden per part below)
+\chapterimage{template/orange1.jpg}
+\chapterspaceabove{6.5cm}
+\chapterspacebelow{6.75cm}
+
 \begin{document}
-\maketitle
+
+%----------------------------------------------------------------------------------------
+%	TITLE AND COPYRIGHT PAGES
+%----------------------------------------------------------------------------------------
+\titlepage
+  {\includegraphics[width=\paperwidth]{template/background.pdf}}
+  {%
+    \centering\sffamily
+    {\Huge\bfseries Carlo's Little Mathbook\par}
+    \vspace{24pt}
+    {\huge\bfseries Carlo du Toit\par}
+  }
+
+\printonly{%
+\thispagestyle{empty}
+~\vfill
+\noindent Copyright \copyright\ 2026 Carlo du Toit\\
+\noindent \textit{Typeset with the
+\href{https://www.latextemplates.com/template/legrand-orange-book}{Legrand Orange Book}
+template by Mathias Legrand and Vel, licensed under CC BY-NC-SA 4.0.}
+}
+
+\pagestyle{empty}
 \tableofcontents
+\pagestyle{fancy}
+\cleardoublepage
 
 %=========================================================
 \part{Physics}\label{phys}
 %=========================================================
+\chapterimage{template/orange2.jpg}
 \include{chapters/physics/time-dilation}
 \include{chapters/physics/centripetal-acceleration}
 
 %=========================================================
 \part{Probability and Statistics}\label{prob}
 %=========================================================
+\chapterimage{template/orange3.jpg}
 \include{chapters/probability-statistics/basic-probability}
 
-\bibliographystyle{plain}
-\bibliography{refs}
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+\chapterimage{}
+\chapterspaceabove{2.5cm}
+\chapterspacebelow{2cm}
+\printonly{%
+\chapter*{Bibliography}
+\markboth{\sffamily\normalsize\bfseries Bibliography}{\sffamily\normalsize\bfseries Bibliography}
+\addcontentsline{toc}{chapter}{\textcolor{ocre}{Bibliography}}
+}
+\printbibliography[heading=bibempty]
 
 \end{document}
