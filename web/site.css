@@ -4,7 +4,8 @@
   --bg: #fdfdfc;
   --fg: #1d1d1f;
   --muted: #6b6b70;
-  --link: #1a5fb4;
+  --ocre: #f36619;      /* the PDF template's highlight colour */
+  --link: #b8470c;      /* darker ocre, readable as body text */
   --rule: #e3e3e0;
   --nav-bg: #f5f5f2;
   --nav-width: 17rem;
@@ -14,7 +15,8 @@
     --bg: #18181a;
     --fg: #e6e6e3;
     --muted: #9a9aa0;
-    --link: #7fb0ff;
+    --ocre: #ff8a4c;
+    --link: #ff9a62;
     --rule: #2e2e31;
     --nav-bg: #1f1f22;
   }
@@ -22,6 +24,19 @@
 
 body { background: var(--bg); color: var(--fg); margin: 0; }
 a, a:visited { color: var(--link); }
+
+/* Headings in a geometric sans, like the template's Avant Garde. */
+.ltx_title, .ltx_page_navbar > a[rel="start"] {
+  font-family: "URW Gothic", "TeX Gyre Adventor", "Century Gothic", "Avant Garde",
+               Futura, system-ui, sans-serif;
+}
+.ltx_title_chapter, .ltx_title_part, .ltx_title_document {
+  border-bottom: 3px solid var(--ocre); padding-bottom: 0.3rem;
+}
+.ltx_title .ltx_tag { color: var(--ocre); }
+.ltx_title_chapter .ltx_tag_chapter, .ltx_title_part .ltx_tag_part {
+  display: block; font-size: 0.6em; text-transform: uppercase; letter-spacing: 0.08em;
+}
 
 /* TikZ figures are black strokes; keep them readable in dark mode. */
 @media (prefers-color-scheme: dark) {
@@ -95,9 +110,20 @@ table.ltx_tabular.ltx_centering { margin-inline: auto; }
         --pagefind-ui-text: var(--fg); --pagefind-ui-background: var(--bg);
         --pagefind-ui-border: var(--rule); --pagefind-ui-tag: var(--nav-bg); }
 
+/* Theorem-like boxes, in the spirit of the template's. */
+.ltx_theorem_theorem, .ltx_theorem_proposition, .ltx_theorem_corollary {
+  border: 1px solid var(--ocre); background: color-mix(in srgb, var(--ocre) 7%, var(--bg));
+  padding: 0.6rem 1rem; margin: 1.5rem 0;
+}
+.ltx_theorem_definition, .ltx_theorem_example, .ltx_theorem_exercise,
+.ltx_theorem_problem, .ltx_theorem_notation, .ltx_theorem_vocabulary {
+  border-left: 4px solid var(--ocre); padding: 0.2rem 1rem; margin: 1.5rem 0;
+}
+.ltx_theorem .ltx_title_theorem { color: var(--link); }
+
 /* --- Web extras (\begin{explore} in macros.tex) and code listings --- */
 .ltx_theorem_explore {
-  border-left: 4px solid var(--link); background: var(--nav-bg);
+  border-left: 4px solid var(--ocre); background: var(--nav-bg);
   padding: 0.6rem 1rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0;
 }
 .ltx_listing {
