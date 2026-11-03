@@ -1,0 +1,62 @@
+# -*- mode: Perl -*-
+# LaTeXML stand-in for LegrandOrangeBook.cls, used only by `make web`.
+#
+# LaTeXML cannot run the real class (titlesec, mdframed, fancyhdr page art),
+# so for the website the book is a plain `book` plus the commands and
+# environments the chapters use. Styling is done in web/site.css instead.
+# Anything new that main.tex or the chapters use from the class needs a
+# definition here too.
+package LaTeXML::Package::Pool;
+use strict;
+use warnings;
+use LaTeXML::Package;
+
+# Accept and ignore the class options (11pt, fleqn, a4paper, oneside, ...).
+DeclareOption(undef, sub { });
+ProcessOptions();
+
+LoadClass('book');
+RequirePackage('amsmath');
+RequirePackage('amssymb');
+RequirePackage('amsthm');
+RequirePackage('graphicx');
+RequirePackage('xcolor', options => ['usenames', 'svgnames', 'table']);
+RequirePackage('tikz');
+RequirePackage('booktabs');
+RequirePackage('enumitem');
+RequirePackage('makeidx');
+RequirePackage('hyperref');
+
+RawTeX(<<'EOTeX');
+\definecolor{ocre}{RGB}{243,102,25}
+
+% Page art the website doesn't use.
+\newcommand{\chapterimage}[1]{}
+\newcommand{\chapterspaceabove}[1]{}
+\newcommand{\chapterspacebelow}[1]{}
+\def\titlepage#1#2{\maketitle}
+
+% biblatex -> LaTeXML's own BibTeX support (\cite already works).
+\def\LOBbibfile{}
+\def\LOBsetbib#1.bib#2\relax{\def\LOBbibfile{#1}}
+\newcommand{\addbibresource}[2][]{\LOBsetbib#2.bib\relax}
+\newcommand{\printbibliography}[1][]{\bibliography{\LOBbibfile}}
+\newcommand{\defbibheading}[3][]{}
+
+% The class's theorem-like environments, with the same names and numbering.
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{problem}{Problem}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}{Example}[chapter]
+\newtheorem{exercise}{Exercise}[chapter]
+\newtheorem{notation}{Notation}[chapter]
+\newtheorem{vocabulary}{Vocabulary}[chapter]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+EOTeX
+
+1;

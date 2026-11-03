@@ -45,18 +45,22 @@ A full build takes about 15 seconds for the website and a few seconds for the PD
 ## Layout
 
 ```
-main.tex          Reading order: \part, then \include for each chapter
-preamble.tex      Packages (shared by every book built from these chapters)
-macros.tex        Notation, theorem environments, \assumes, \webonly / \printonly
-refs.bib          Bibliography (BibTeX)
+main.tex          Reading order (\part, then \include per chapter), title page, chapter images
+LegrandOrangeBook.cls   Book design (Legrand Orange Book template, unmodified)
+indexstyle.ist    Index style that comes with the template
+preamble.tex      Extra packages on top of the class (shared by every book built from these chapters)
+macros.tex        Notation, \assumes, \webonly / \printonly, explore box
+refs.bib          Bibliography (biblatex + biber)
 chapters/
   physics/                         Part I    labels: phys:...
     time-dilation.tex
     centripetal-acceleration.tex
   probability-statistics/          Part II   labels: prob:...
     basic-probability.tex
+figures/          Images; figures/template/ holds the template's title and chapter images
 web-extras/       Code and resources shown only on the website, by part
-web/              Website styling (site.css) and search box (site.js)
+web/              Website styling (site.css), search box (site.js), and
+                  latexml/LegrandOrangeBook.cls.ltxml, which stands in for the class on the web
 build/            Generated PDF and website (ignored by git)
 Makefile          Build commands
 setup.sh          Install the tools
@@ -96,6 +100,16 @@ page of the website.
 
 **Shared notation** goes in `macros.tex`, never in a chapter.
 
+**Theorem-like boxes** come from the template class: `theorem`, `proposition`,
+`corollary`, `definition`, `example`, `exercise`, `problem`, `notation`,
+`vocabulary` and `remark`, numbered per chapter. The website gets the same
+names from `web/latexml/LegrandOrangeBook.cls.ltxml`; if you start using
+anything else from the class, add a definition there too.
+
+**Chapter images** (the photo behind each chapter title in the PDF) are set
+in `main.tex` with `\chapterimage{template/orange2.jpg}` before an `\include`;
+put your own in `figures/`. The website ignores them.
+
 **Faster rebuilds while writing:** `./build.sh chapter chapters/<part>/<topic>`
 builds just that chapter. Cross-references to other chapters resolve once a
 full `./build.sh pdf` has been run.
@@ -127,6 +141,7 @@ item: `grep -rn '\\webonly' chapters`.
   VS Code with the *LaTeX Workshop* extension also works (pdflatex, `main.tex`).
 - **Overleaf:** upload the repository as a zip (or use Overleaf's Git sync)
   and keep the default pdflatex compiler. `main.tex` is the main file.
+  Overleaf runs biber for the bibliography automatically.
 
 ## Publishing
 
@@ -137,3 +152,12 @@ the PDF as a downloadable artifact.
 
 One-time setup on GitHub: **Settings → Pages → Build and deployment → Source:
 GitHub Actions**.
+
+## Template and licence
+
+The book design is the [Legrand Orange Book](https://www.latextemplates.com/template/legrand-orange-book)
+by Mathias Legrand and Vel, v3.1, licensed under
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/):
+free to use and adapt with attribution, but **not for commercial use**, and
+adaptations of the template must keep the same licence. The class file is kept
+unmodified so it can be updated; customise in `main.tex` and `preamble.tex`.

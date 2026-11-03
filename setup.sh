@@ -14,11 +14,13 @@ set -euo pipefail
 PAGEFIND_VERSION=1.3.0
 
 # TeX packages the book uses that BasicTeX may not include.
-TEX_PACKAGES=(latexmk pgf geometry listings amscls amsfonts hyperref xcolor etoolbox)
+TEX_PACKAGES=(latexmk pgf geometry listings amscls amsfonts hyperref xcolor etoolbox
+              changepage appendix emptypage titlesec biblatex biber enumitem
+              mdframed zref needspace avantgar rsfs)  # last two lines: LegrandOrangeBook.cls
 
 APT_PACKAGES=(make latexmk texlive-latex-base texlive-latex-recommended
               texlive-latex-extra texlive-pictures texlive-fonts-recommended
-              latexml nodejs npm)
+              texlive-bibtex-extra biber latexml nodejs npm)
 
 step() { printf '\n==> %s\n' "$*"; }
 have() { command -v "$1" >/dev/null 2>&1; }
